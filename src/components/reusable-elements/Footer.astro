@@ -15,8 +15,8 @@ const navLinks = [
 ];
 
 const socials = [
-  { name: 'Facebook', href: '#', icon: 'facebook-icon' },
-  { name: 'Instagram', href: '#', icon: 'instagram-icon' },
+  { name: 'Facebook', href: 'https://www.facebook.com/passionvet/', icon: 'facebook-icon' },
+  { name: 'Instagram', href: 'https://www.instagram.com/passionvetsg/', icon: 'instagram-icon' },
 ];
 ---
 <div class="flex flex-col dm-sans-font min-h-[calc(100svh-(--spacing(33)))]" >
@@ -60,8 +60,8 @@ const socials = [
       <h2 class="text-2xl font-bold text-white">Passion Vet</h2>
       <div class="flex gap-4 mt-2">
         {socials.map((social) => (
-          <a href={social.href} class="hover:text-white transition-colors" aria-label={social.name}>
-            {/* You can replace these with actual SVG icons */}
+          <a href={social.href} class="hover:text-white transition-colors" target="_blank" aria-label={social.name}>
+            {/* replace these with actual SVG icons */}
             <span class="text-xs uppercase tracking-widest">{social.name}</span>
           </a>
         ))}
@@ -74,7 +74,7 @@ const socials = [
       <ul class="space-y-2">
         {navLinks.map((link) => (
           <li>
-            <a href={link.href} class="hover:text-cyan-400 transition-colors">
+            <a href={link.href} class="hover:text-cyan-400 transition-colors" >
               {link.name}
             </a>
           </li>
@@ -88,7 +88,7 @@ const socials = [
       <ul class="space-y-3 text-sm">
         <li class="flex items-center gap-2">
           <span>Email:</span>
-          <a href="mailto:hello@example.com" class="text-cyan-400 hover:underline">passionvet@gmail.com</a>
+          <a href="mailto:passionvet@gmail.com" class="text-cyan-400 hover:underline">passionvet@gmail.com</a>
         </li>
         <li>
           <span>Location:</span>
