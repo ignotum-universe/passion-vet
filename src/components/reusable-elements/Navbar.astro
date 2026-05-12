@@ -1,4 +1,7 @@
 ---
+import Image from "astro/components/Image.astro";
+import navLogo from "../../assets/logo2.png"
+
 const phoneNumber = "+65 8168 5850";
 const address = "136 Marsiling road #01-2180 Singapore 730136";
 const email = "passionvet@gmail.com";
@@ -221,8 +224,8 @@ const NAV_ITEMS = [
             class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between"
         >
             <a href="/" class="navbar-logo">
-                <img
-                    src="src/assets/logo2.png"
+                <Image
+                    src={navLogo}
                     alt="Logo"
                     class="h-16 w-auto transition-all"
                 />
@@ -271,12 +274,13 @@ const NAV_ITEMS = [
         aria-label="Navigation menu"
     >
         <!-- Overlay font -->
-        <span
+        
+        <a
             class="absolute cormorant-garamond-font"
+            href="/"
             style="top: 1.5rem; left: 1.5rem; font-size: 2rem; color:#111;"
         >
-            Passion Vet
-        </span>
+            Passion Vet</a>
 
         <!-- Close button -->
         <button
