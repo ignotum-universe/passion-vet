@@ -1,0 +1,345 @@
+---
+
+const vets = [
+    {
+        name: "Dr. Kerrie Lek",
+        credentials: "BVSc (Hons) (Melbourne), Grad Dip VCHM (IVAS)",
+        role: "Veterinary Surgeon",
+        profile: "src/assets/staff/1.jpg",
+        description: "Dr. Kerrie Lek graduated from the University of Melbourne in 2011 and is NAVLE-certified with global clinical experience spanning Australia, Malaysia, the U.S., and Singapore. She specializes in Orthopedics, Soft Tissue Surgery, and Integrative Medicine, holding advanced qualifications in Veterinary Chinese Herbal Medicine and Acupuncture. A recognized expert, Dr. Kerrie has been featured in The Straits Times, Channel 5, and Women Entrepreneur Magazine. She is a former Honorary Secretary of the Singapore Veterinary Association and a dedicated Grassroots Leader with over 10 years of community service.",
+    },
+    {
+        name: "Dr. Aidil Md Nordin ",
+        credentials: "BVSc (Massey), MRCVS",
+        role: "Veterinary Surgeon",
+        profile: "src/assets/staff/2.jpeg",
+        description: "Dr. Aidil earned his veterinary degree from Massey University, New Zealand, in 2015. Before settling in Singapore as a small animal veterinarian, he practiced across New Zealand, the United Kingdom, and Malaysia. He has a dedicated interest in internal medicine and general practice, frequently attending advanced workshops to stay at the forefront of the field. A recognized voice in the profession, Dr. Aidil has been featured on Mediacorp’s Detik and Berita. Outside the clinic, he is an avid nature photographer and stays active through skateboarding and trail exploration.",
+    },
+    {
+        name: "Dr. Marc Teo",
+        credentials: "DVM (Oregon)",
+        role: "Veterinary Surgeon",
+        profile: "src/assets/staff/3.jpg",
+        description: "Dr. Marc Teo graduated in 2022 with a Doctor of Veterinary Medicine from Oregon State University. He enjoys working with small companion animals and has an interest in internal medicine. Due to the ever changing nature of veterinary medicine, Dr Teo is keen to learn and explore new approaches to enhance veterinary care. Dr Teo is a firm believer in having interests and passions outside of veterinary medicine. During his free time, he enjoys playing golf, working out, traveling and watching a variety of sports in person as well as on television. ",
+    },
+    {
+        name: "Dr. Jeffrey Ling",
+        credentials: "BVSc (Massey, NZ) MSc (NUS, SG)",
+        role: "Veterinary Surgeon",
+        profile: "src/assets/staff/4.jpg",
+        description: "Dr. Jeffrey Ling graduated from Massey University, New Zealand in 2013. He has experience working in academia, regulatory authorities, and small animal clinics. He is interested in preventive medicine and epidemiology. As he believes that prevention is better than cure, he hopes to work with pawrents to keep their pawkids healthy through many disease preventive measures. Also, as an avid learner, he attends continuing education events regularly to keep himself updated with current advances in veterinary medicine",
+    },
+];
+
+const nurses = [
+    {
+        name: "Intan",
+        credentials:
+            "Diploma in Marine Science and Aquaculture, Specialist Diploma in Veterinary Clinical Practice",
+        role: "Nurse",
+        profile: "src/assets/staff/5.jpeg",
+        description: "Intan graduated with a Diploma in Marine Science and Aquaculture and an additional certification in Specialist Diploma in Veterinary Clinical Practice. In terms of work experience, she has completed both internship and a full-time position for 1.5 years and started working with Passion Veterinary Clinic since 2021. In her personal life, she has a cherished 20-year-old cat that she spend quality time with. She also enjoys building up Lego sets, watching Kdramas and animes, and collecting figurines. Furthermore, she prioritizes spending time with her family and exploring various restaurants and cafes.",
+    },
+    {
+        name: "Thet Aye Cham",
+        credentials: "Bachelor of Veterinary Science",
+        role: "Nurse",
+        profile: "src/assets/staff/6.jpeg",
+        description: "Cham graduated with a Bachelor of Veterinary Science from Yezin, Nay Pyi Taw in 2015. Since then, she has gained valuable work experience in veterinary clinics in Myanmar before coming to Singapore in August 2022. Alongside her professional pursuits, she takes great interest in volunteering, traveling, and learning foreign languages. During her free time, she indulges in hobbies such as playing badminton, acquiring new languages, hiking, and cycling.",
+    },
+    {
+        name: "Siti Raidah",
+        credentials: "Specialist Diploma in Veterinary Clinical Practice",
+        role: "Nurse",
+        profile: "src/assets/staff/7.jpeg",
+        description: "Raidah graduated with a Specialist Diploma in Veterinary Clinical Practice and has been working in the veterinary industry since 2019 after sparking an interest in feline care. Outside of work she spends her free time in bed with her paralysed cat Po.",
+    },
+];
+---
+
+<!-- hidden full profile overlay -->
+<div id="drawer-overlay" class="fixed inset-0 bg-black/50 z-[99] hidden opacity-0"></div>
+<div id="drawer-panel" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[100] translate-x-full shadow-2xl p-8 overflow-y-auto">
+    <button id="close-drawer" class="absolute top-5 right-5 text-slate-400 hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    
+    <div id="drawer-content" class="flex flex-col items-center text-center mt-10">
+        <!-- Content will be injected here by JS -->
+    </div>
+</div>
+
+<!-- actual page content -->
+<main class="dm-sans-font">
+    <!-- Vets Section -->
+    <header class="reveal mb-10 border-l-4 border-cyan-500 pl-4">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+            Our Veterinarians
+        </h2>
+    </header>
+
+    <section
+        class="reveal grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 lg:grid-cols-4"
+    >
+        {
+            vets.map((vet) => (
+                <div class="flex flex-col items-center text-center">
+                    <div class="mb-4">
+                        <img
+                            src={vet.profile}
+                            alt={vet.name}
+                            class="w-60 h-60 object-cover rounded-lg shadow-md"
+                        />
+                    </div>
+
+                    <div class="flex flex-col text-center items-center">
+                        <div class="min-h-[3.5rem] flex items-center justify-center">
+                            <p class="text-xl font-bold text-slate-900 leading-tight">
+                                {vet.name}
+                            </p>
+                        </div>
+                        <div class="min-h-[3rem] flex items-center justify-center">
+                            <p class="text-md font-medium text-slate-600 leading-tight">
+                                {vet.credentials}
+                            </p>
+                        </div>
+                        <p class="text-sm text-cyan-600 uppercase tracking-wide font-semibold mt-2">
+                            {vet.role}
+                        </p>
+                    <button
+                        data-vet={JSON.stringify(vet)}
+                        class="vet-read-more w-48 py-2.5 my-4 text-center text-sm font-bold bg-[#0047AB] text-white border-2 border-[#0047AB] rounded-lg transition-all hover:bg-white hover:text-[#0047AB] cursor-pointer active:scale-95"
+                    >
+                        Read more
+                    </button>
+                    </div>
+                </div>
+            ))
+        }
+    </section>
+
+    <!-- Nurses Section -->
+    <header class="reveal mb-10 mt-20 border-l-4 border-slate-300 pl-4">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+            Nursing & Support Team
+        </h2>
+    </header>
+
+    <section class="reveal grid grid-cols-2 gap-4 mt-3 lg:grid-cols-3">
+        {
+            nurses.map((nurse) => (
+                <div class="flex flex-col items-center text-center">
+                    <div class="mb-4">
+                        <img
+                            src={nurse.profile}
+                            alt={nurse.name}
+                            class="w-60 h-60 object-cover rounded-lg shadow-md"
+                        />
+                    </div>
+
+                    <div class="flex flex-col text-center items-center">
+                        <div class="min-h-[3.5rem] flex items-center justify-center">
+                            <p class="text-xl font-bold text-slate-900 leading-tight">
+                                {nurse.name}
+                            </p>
+                        </div>
+                        <div class="min-h-[3rem] flex items-center justify-center">
+                            <p class="text-md font-medium text-slate-600 leading-tight">
+                                {nurse.credentials}
+                            </p>
+                        </div>
+                        <p class="text-sm text-cyan-600 uppercase tracking-wide font-semibold mt-2">
+                            {nurse.role}
+                        </p>
+                        <a
+                            data-vet={JSON.stringify(nurse)}
+                            class="vet-read-more w-48 py-2.5 my-4 text-center text-sm font-bold bg-[#0047AB] text-white border-2 border-[#0047AB] rounded-lg transition-all hover:bg-white hover:text-[#0047AB] cursor-pointer  active:scale-95"
+                        >
+                            Read more
+                        </a>
+                    </div>
+                </div>
+            ))
+        }
+    </section>
+</main>
+
+<!-- Modal Overlay -->
+<div
+    id="vet-modal-overlay"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none dm-sans-font"
+    aria-modal="true"
+    role="dialog"
+    aria-labelledby="modal-vet-name"
+>
+    <!-- Backdrop -->
+    <div
+        id="vet-modal-backdrop"
+        class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0"
+    ></div>
+
+    <!-- Modal Card -->
+    <div
+        id="vet-modal-card"
+        class="relative z-10 bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden opacity-0 scale-90"
+    >
+        <!-- Top accent bar -->
+        <div class="h-1.5 w-full bg-[#0047AB]"></div>
+
+        <!-- Close button -->
+        <button
+            id="vet-modal-close"
+            class="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 transition-colors text-slate-600 hover:text-slate-900"
+            aria-label="Close"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <!-- Content -->
+        <div class="flex flex-col sm:flex-row gap-6 p-8">
+            <!-- Photo -->
+            <div class="flex-shrink-0 mx-auto sm:mx-0">
+                <img
+                    id="modal-vet-photo"
+                    src=""
+                    alt=""
+                    class="w-36 h-36 object-cover rounded-xl shadow-lg ring-4 ring-slate-100"
+                />
+            </div>
+
+            <!-- Info -->
+            <div class="flex flex-col justify-center text-center sm:text-left">
+                <p id="modal-vet-role" class="text-xs text-cyan-600 uppercase tracking-widest font-semibold mb-1"></p>
+                <h2 id="modal-vet-name" class="text-2xl font-bold text-slate-900 leading-tight mb-1"></h2>
+                <p id="modal-vet-credentials" class="text-sm font-medium text-slate-500 mb-4"></p>
+                <p id="modal-vet-description" class="text-slate-700 text-sm leading-relaxed"></p>
+            </div>
+        </div>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+    main {
+        padding: 4rem clamp(1rem, 15vw, 32rem);
+        transition: padding 0.2s ease-out;
+    }
+
+    .service-row-item {
+        opacity: 0;
+    }
+
+    .reveal {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .dm-sans-font {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    @media (max-width: 1480px) {
+        main {
+            padding: 4rem clamp(0px, 7vw, 32rem);
+        }
+    }
+
+    @media (max-width: 640px) {
+        main {
+            padding: 4rem clamp(0px, 5vw, 32rem);
+        }
+    }
+</style>
+
+<script>
+    // page load animation
+    import { gsap } from "gsap";
+
+    const overlay = document.getElementById("vet-modal-overlay")!;
+    document.body.appendChild(overlay);
+    const backdrop  = document.getElementById("vet-modal-backdrop")!;
+    const card      = document.getElementById("vet-modal-card")!;
+    const closeBtn  = document.getElementById("vet-modal-close")!;
+
+    const photo       = document.getElementById("modal-vet-photo") as HTMLImageElement;
+    const name        = document.getElementById("modal-vet-name")!;
+    const credentials = document.getElementById("modal-vet-credentials")!;
+    const role        = document.getElementById("modal-vet-role")!;
+    const description = document.getElementById("modal-vet-description")!;
+
+    let isOpen = false;
+    // Run on page load
+    window.addEventListener("load", () => {
+        const tl = gsap.timeline({
+            defaults: {
+                ease: "power2.out",
+                duration: 1,
+            },
+        });
+
+        // Animate them "to" full visibility
+        tl.to(".reveal", {
+            autoAlpha: 1, 
+            y: 0,
+            stagger: 0.4, 
+            startAt: { y: -20 },
+        });
+    });
+
+    // Read more function
+    function openModal(vet: { name: string; credentials: string; role: string; profile: string; description: string }) {
+        // Populate content
+        photo.src         = vet.profile;
+        photo.alt         = vet.name;
+        name.textContent  = vet.name;
+        credentials.textContent = vet.credentials;
+        role.textContent  = vet.role;
+        description.textContent = vet.description;
+
+        overlay.classList.remove("pointer-events-none");
+        isOpen = true;
+
+        const tl = gsap.timeline();
+        tl.to(backdrop, { opacity: 1, duration: 0.3, ease: "power2.out" })
+          .to(card, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.45,
+              ease: "back.out(1.5)",
+          }, "-=0.15");
+    }
+
+    function closeModal() {
+        if (!isOpen) return;
+        isOpen = false;
+
+        const tl = gsap.timeline({
+            onComplete: () => overlay.classList.add("pointer-events-none"),
+        });
+        tl.to(card, { opacity: 0, scale: 0.92, duration: 0.25, ease: "power2.in" })
+          .to(backdrop, { opacity: 0, duration: 0.2, ease: "power2.in" }, "-=0.1");
+    }
+
+    // Open on "Read more" click
+    document.querySelectorAll<HTMLButtonElement>(".vet-read-more").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const vet = JSON.parse(btn.dataset.vet!);
+            openModal(vet);
+        });
+    });
+
+    // Close via button
+    closeBtn.addEventListener("click", closeModal);
+
+    // Close via backdrop click
+    backdrop.addEventListener("click", closeModal);
+
+    // Close via Escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+    });
+</script>

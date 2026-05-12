@@ -1,0 +1,74 @@
+---
+import RippleButton from "../reusable-elements/RippleButton.astro";
+---
+
+<div
+    class="relative h-[80vh] bg-[url(src/assets/hero.jpg)] bg-cover bg-center overflow-hidden mt-23 lg:mt-33"
+>
+    <section
+        class="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-15 bg-black/10"
+    >
+        <!-- Text Wrap: Full width on mobile, 50% on tablet, 40% on desktop -->
+        <div class="w-full md:w-[50%] lg:w-[40%]">
+            <!-- Heading: Responsive font sizes -->
+            <!-- text-4xl (~36px) on mobile, text-6xl (~60px) on tablet, text-[4em] on large screens -->
+            <h2 id="hero-text"
+                class="text-white text-4xl md:text-6xl lg:text-[4em] font-bold leading-tight dm-sans-font md:leading-none"
+            >
+                Complete veterinary care you can trust
+            </h2>
+
+            <!-- Button: Full width on tiny screens, auto-width on desktop -->
+             <div id="hero-button" class="opacity-0">
+                <RippleButton class="" href="https://wa.me/81685850" target="_blank">Book an Appointment </RippleButton>
+             </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+    .dm-sans-font {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+
+    // 1. Use an optional check
+    const heading = document.querySelector('#hero-text');
+    
+    // Only run if the element actually exists
+    if (heading && heading.textContent) {
+        const text = heading.textContent.trim();
+        
+        // 2. Split text into spans
+        heading.innerHTML = text.split(' ').map(word => 
+            `<span class="inline-block overflow-hidden pb-2">
+                <span class="inline-block word-inner">${word}&nbsp;</span>
+             </span>`
+        ).join('');
+
+        // 3. Animation Timeline
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+        tl.from(".word-inner", {
+            y: "110%",
+            duration: 1.2,
+            stagger: 0.08,
+            skewY: 7,
+        });
+
+        const btn = document.querySelector('#hero-button');
+            tl.to(btn, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8
+            }, "-=0.6");
+    }
+</script>

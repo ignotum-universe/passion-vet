@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Navbar from '../components/reusable-elements/Navbar.astro'
+import SubHero from '../components/reusable-elements/SubHero.astro'
+import MeetTheTeam from "../components/team/meet-the-team.astro"
+// footer is in layout.astro
+---
+
+<Navbar></Navbar>
+<!-- smooth scroller in layout.astro messed with sticky of navbar so it has to be outside -->
+<Layout>
+    <SubHero title="Meet the team"></SubHero>
+    <MeetTheTeam></MeetTheTeam>
+</Layout>

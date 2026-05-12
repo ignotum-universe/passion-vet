@@ -1,17 +1,19 @@
 ---
+import Layout from "../layouts/Layout.astro"
+import Navbar from '../components/reusable-elements/Navbar.astro'
+import Hero from "../components/home/Hero.astro"
+import AboutUs from "../components/home/AboutUs.astro"
+import Testimonials from "../components/home/Testimonials.astro"
+import Shop from "../components/home/Shop.astro"
+// footer is in layout.astro
 
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Navbar></Navbar>
+<!-- smooth scroller in layout.astro messed with sticky of navbar so it has to be outside -->
+<Layout>
+	<Hero></Hero>
+	<AboutUs></AboutUs>
+	<Testimonials></Testimonials>
+	<Shop></Shop>
+	
+</Layout>

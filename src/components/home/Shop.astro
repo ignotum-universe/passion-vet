@@ -1,0 +1,131 @@
+---
+import Overline from "../reusable-elements/Overline.astro";
+
+
+const products = [
+  {
+    name: "Actea Oral - 1 tube (15ml)",
+    image: "src/assets/productpics/CandioliActeaOralStomatologicProtectiveGelwithLasforDogs_Cats15ml_.jpg",
+    price: "$33.20",
+    discountedPrice: "",
+    link: "https://shop.passionvet.com/products/actea-oral-15ml"
+  },
+  {
+    name: "Antinol For Cats - 1 box (60 capsules)",
+    image: "src/assets/productpics/antinolcat.jpg",
+    price: "$77.80",
+    discountedPrice: "", 
+    link: "https://shop.passionvet.com/products/antinol-for-cats"
+  },
+  {
+    name: "Antinol For Dogs - 1 box (60 capsules)",
+    image: "src/assets/productpics/antinoldog.jpg",
+    price: "$78.00",
+    discountedPrice: "$68.00", // Adding discount price will automatically strikethrough normal price
+    link: "https://shop.passionvet.com/products/antinol-for-dogs"
+  },
+  {
+    name: "Apoquel 16mg - price per tablet",
+    image: "src/assets/productpics/apoquel-16mg-100-tablets_800x_b1da9948-b112-465d-978b-f6617923daed_360x.jpg",
+    price: "$5.89",
+    discountedPrice: "",
+    link: "https://shop.passionvet.com/products/apoquel-16mg-price-per-tablet"
+  }
+];
+---
+
+<main>
+  <Overline eyebrow="shop" align="left" />
+    <section class="">
+        <h1 class="dm-sans-font text-[2rem] md:text-[3rem] pb-5">Featured Products</h1>
+<div class="grid 2xl:grid-cols-4 xl:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 grid-cols-2">
+  {products.map((product) => (
+    <div class="flex flex-col h-full rounded-[20px] bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05),0_10px_20px_-5px_rgba(0,0,0,0.2)] transition-transform hover:scale-[1.02]">
+      <img 
+        src={product.image} 
+        alt={product.name} 
+        class="w-full h-48 lg:h-64 object-cover rounded-t-[20px]" 
+      />
+      
+      {/* Content Wrapper - Using p-3 for mobile, p-5 for large screens */}
+      <div class="flex flex-col flex-grow p-3 lg:p-5">
+        
+        {/* Product Name */}
+        <div class="min-h-[3rem] lg:min-h-[3.5rem]">
+          <h2 class="font-bold text-sm md:text-base lg:text-lg leading-snug line-clamp-2 text-gray-800">
+            {product.name}
+          </h2>
+        </div>
+        
+        {/* Price Section */}
+<div class="mt-auto pt-4 flex flex-col gap-3">
+  
+  {/* Price Container: Always side-by-side with wrapping for long prices */}
+  <div class="flex flex-wrap items-baseline gap-2">
+    {product.discountedPrice ? (
+      <>
+        <span class="text-lg md:text-xl font-bold text-gray-900">
+          {product.discountedPrice}
+        </span>
+        <span class="text-sm md:text-base line-through text-gray-400">
+          {product.price}
+        </span>
+      </>
+    ) : (
+      <span class="text-lg md:text-xl font-bold text-gray-900">
+        {product.price}
+      </span>
+    )}
+  </div>
+
+  {/* Button: Always full width, consistent padding and font weight */}
+  <a 
+    href={product.link} 
+    target="_blank"
+    class="w-full text-center py-2.5 text-sm font-bold bg-[#0047AB] text-white border-2 border-[#0047AB] rounded-lg transition-all hover:bg-white hover:text-[#0047AB]"
+  >
+    BUY NOW
+  </a>
+</div>
+
+      </div>
+    </div>
+  ))}
+</div>
+<div class="w-full flex justify-center">
+<a class=" py-3 px-12 text-sm font-bold bg-white text-[#0047AB] border-2 border-[#0047AB] mt-6 rounded-lg transition-all hover:bg-[#0047AB] hover:text-white"
+style="cursor:pointer" href="https://shop.passionvet.com/" target="_blank">
+  View all
+</a>
+</div>
+
+    </section>
+</main>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+    main {
+        padding: 4rem clamp(1rem, 20vw, 32rem);
+        transition: padding 0.2s ease-out;
+    }
+
+    .dm-sans-font {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: <weight>;
+        font-style: normal;
+    }
+
+    @media (max-width: 1280px) {
+        main {
+            padding: 4rem clamp(0px, 7vw, 32rem);
+        }
+    }
+
+    @media (max-width: 640px) {
+        main {
+            padding: 4rem clamp(0px, 5vw, 32rem);
+        }
+    }
+</style>

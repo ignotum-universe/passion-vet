@@ -1,0 +1,329 @@
+---
+// In case I forget, the current idea is for there to be 2 auto scrolling carousel rows of reviews
+//  each scrolling in opposite directions
+// Title in the center of both carousel
+// 1. Import the data directly (Astro handles the JSON parsing for you)
+import reviewsData from "../../data/Reviews.json";
+import profilepic from "../../assets/logo2.png";
+import RippleButton from "../reusable-elements/RippleButton.astro";
+
+const profilePics = [profilepic, profilepic, profilepic, profilepic];
+
+interface RawReview {
+  "Reviewer Name": string;
+  "Review Rating (Max 5)": string;
+  "Review Date": string;
+  "Review Content": string;
+  "Review Images": string;
+}
+
+// 1. Clean the data as per normal
+const allReviews = (reviewsData as RawReview[]).map((rev) => ({
+  name: rev["Reviewer Name"],
+  content: rev["Review Content"],
+  rating: parseInt(rev["Review Rating (Max 5)"]),
+  images: rev["Review Images"] ? rev["Review Images"].split("\n") : [],
+}));
+
+// 2. Split into two halves
+const midPoint = Math.ceil(allReviews.length / 2);
+
+// Top Row: First half of the JSON
+const topRow = allReviews.slice(0, midPoint);
+
+// Bottom Row: Second half of the JSON, reversed
+// .toReversed() ensures the second row starts from the very last entry
+const bottomRow = allReviews.slice(midPoint).toReversed();
+---
+
+<head><meta name="referrer" content="no-referrer" /></head>
+
+<section class="reviews-section bg-[#C5D8F5] py-[4rem] overflow-hidden">
+  <!-- 1. Mobile-Only Title & CTA -->
+  <div class="md:hidden flex flex-col items-center p-12 pt-0">
+    <h2 class="text-5xl font-bold text-[#0047AB] flex flex-col" >
+      <span class="cormorant-garamond-font text-5xl sm:text-7xl">Trusted by Pets </span>
+      <span class="dm-sans-font text-3xl sm:text-6xl bg-linear-to-r from-[#D81B60] to-[#F06292] bg-clip-text text-transparent">(and their humans)</span>
+    </h2>
+    <RippleButton class="" href="https://tinyurl.com/5awambtj" target="_blank"> See all google reviews </RippleButton>
+  </div>
+
+  <!-- 2. TOP ROW (Scrolls Left) -->
+  <div
+    class="reviews-container-top flex gap-4 mb-4 md:items-end translate-x-0"
+  >
+    {
+      topRow.map((review) => {
+        const picIndex = review.name.length % profilePics.length;
+        const assignedPic = profilePics[picIndex];
+        return (
+          <div class="review-card flex flex-col min-w-0 shrink-0 w-[85vw] md:w-[500px] bg-white p-6 rounded-2xl shadow-sm">
+            <div class="flex flex-row justify-between">
+              <div class="flex flex-row items-center gap-3">
+                <img
+                  src={assignedPic.src}
+                  class="w-10 h-10 rounded-full"
+                  alt=""
+                />
+                <h3 class="font-bold">{review.name}</h3>
+              </div>
+
+              <div class="flex stars text-yellow-400 my-2 text-[1rem]">
+                {"★".repeat(review.rating)}
+              </div>
+            </div>
+
+            <p
+              class={`text-sm text-gray-600 dm-sans-font flex-1 ${review.images.length > 0 ? "line-clamp-4" : "line-clamp-12"}`}
+            >
+              {review.content}
+            </p>
+            {review.images.length > 0 && (
+              <div class="grid grid-cols-3 gap-2 mt-4">
+                {review.images.slice(0, 3).map((imgUrl) => (
+                  <img
+                    src={imgUrl}
+                    class="w-full object-cover rounded-lg"
+                    alt="Happy patient"
+                    draggable="false"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <!-- 3. DESKTOP CENTER TITLE & CTA -->
+  <div class="hidden md:flex flex-col items-center py-12">
+    <h2 class="text-5xl font-bold text-[#0047AB]" style="line-break: auto">
+      <span class="cormorant-garamond-font ">Trusted by Pets </span><span
+        class="dm-sans-font bg-linear-to-r from-[#D81B60] to-[#F06292] bg-clip-text text-transparent">(and their humans)</span>
+    </h2>
+    <RippleButton class="" href="https://tinyurl.com/5awambtj" target="_blank"> See all google reviews</RippleButton>
+  </div>
+
+  <!-- 4. BOTTOM ROW (Scrolls Right - Hidden on Mobile) -->
+  <div class="reviews-container-bottom hidden md:flex gap-4 items-start">
+    {
+      bottomRow.map((review) => {
+        const picIndex = review.name.length % profilePics.length;
+        const assignedPic = profilePics[picIndex];
+        return (
+          <div class="review-card flex-shrink-0 w-[85vw] md:w-[500px] bg-white p-6 rounded-2xl shadow-sm">
+            <div class="flex flex-row justify-between">
+              <div class="flex flex-row items-center gap-3">
+                <img
+                  src={assignedPic.src}
+                  class="w-10 h-10 rounded-full"
+                  alt=""
+                />
+                <h3 class="font-bold">{review.name}</h3>
+              </div>
+              <div class="flex stars text-yellow-400 my-2">
+                {"★".repeat(review.rating)}
+              </div>
+            </div>
+
+            <p
+              class={`text-sm text-gray-600 dm-sans-font ${review.images.length > 0 ? "line-clamp-4" : "line-clamp-12"}`}
+            >
+              {review.content}
+            </p>
+            {review.images.length > 0 && (
+              <div class="grid grid-cols-3 gap-2 mt-4">
+                {review.images.slice(0, 3).map((imgUrl) => (
+                  <img
+                    src={imgUrl}
+                    class="w-full object-cover rounded-lg"
+                    alt="Happy patient"
+                    draggable="false"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+  .cormorant-garamond-font {
+    font-family: "Cormorant Garamond", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: italic;
+  }
+  .dm-sans-font {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .review-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    touch-action: pan-y;
+    cursor: grab;
+  }
+
+  .reviews-container-top .reviews-container-bottom {
+  }
+</style>
+
+<!-- 5. Use the script ONLY for GSAP animation -->
+<script>
+  import { gsap } from "gsap";
+
+  const setupMarquee = (className: string, direction = 1, duration = 80) => {
+    const container = document.querySelector(className) as HTMLElement;
+    if (!container) return;
+
+    const cards = Array.from(container.children);
+    cards.forEach((card) => {
+      const clone = card.cloneNode(true);
+      container.appendChild(clone);
+    });
+
+    const totalWidth = container.scrollWidth / 2;
+    const pixelsPerSecond = totalWidth / 80;
+
+    let currentX = direction < 0 ? -totalWidth : 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartContainerX = 0;
+    let speedMultiplier = 1;
+
+    // --- NEW: velocity tracking ---
+    let lastPointerX = 0;
+    let lastPointerTime = 0;
+    let dragVelocity = 0;         // px per frame, derived from pointer delta
+    let momentumVelocity = 0;     // active momentum after release
+    let isMomentum = false;
+
+    const wrap = gsap.utils.wrap(-totalWidth, 0);
+
+    const tick = () => {
+      if (isDragging) return;
+
+      if (isMomentum) {
+        // Apply momentum velocity, then friction it toward zero
+        currentX = wrap(currentX + momentumVelocity);
+        gsap.set(container, { x: currentX });
+
+        momentumVelocity *= 0.92; // friction — lower = stops faster
+
+        // Convert momentum velocity to a comparable "speedMultiplier" direction
+        // Once momentum is negligible, hand back to auto-scroll
+        if (Math.abs(momentumVelocity) < 0.05) {
+          isMomentum = false;
+          // Restore speedMultiplier based on hover state (mouseleave sets it to 1 already)
+        }
+        return;
+      }
+
+      // Normal auto-scroll
+      currentX = wrap(
+        currentX - pixelsPerSecond * direction * speedMultiplier * (1 / 80),
+      );
+      gsap.set(container, { x: currentX });
+    };
+
+    gsap.ticker.add(tick);
+
+    container.addEventListener("mouseenter", () => {
+      if (isMomentum) return; // Don't fight momentum on hover
+      gsap.to(
+        { val: speedMultiplier },
+        {
+          val: 0,
+          duration: 0.4,
+          ease: "power2.out",
+          onUpdate: function () {
+            speedMultiplier = this.targets()[0].val;
+          },
+        },
+      );
+    });
+
+    container.addEventListener("mouseleave", () => {
+      gsap.to(
+        { val: speedMultiplier },
+        {
+          val: 1,
+          duration: 0.5,
+          ease: "power2.out",
+          onUpdate: function () {
+            speedMultiplier = this.targets()[0].val;
+          },
+        },
+      );
+    });
+
+    const onPointerDown = (e: PointerEvent) => {
+      isDragging = true;
+      isMomentum = false;       // Cancel any active momentum
+      dragStartX = e.clientX;
+      dragStartContainerX = currentX;
+      lastPointerX = e.clientX;
+      lastPointerTime = performance.now();
+      dragVelocity = 0;
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!isDragging) return;
+
+      const now = performance.now();
+      const dt = now - lastPointerTime;
+
+      if (dt > 0) {
+        // Velocity in px/ms, scaled to feel right at 60fps (~16ms/frame)
+        const rawVelocity = (e.clientX - lastPointerX) / dt * 16;
+        // Smooth it with a simple lerp so jitter doesn't spike velocity
+        dragVelocity = dragVelocity * 0.6 + rawVelocity * 0.4;
+      }
+
+      lastPointerX = e.clientX;
+      lastPointerTime = now;
+
+      const delta = e.clientX - dragStartX;
+      currentX = wrap(dragStartContainerX + delta);
+      gsap.set(container, { x: currentX });
+    };
+
+    const onPointerUp = () => {
+      isDragging = false;
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+
+      // Only apply momentum if there's meaningful velocity
+      if (Math.abs(dragVelocity) > 0.5) {
+        isMomentum = true;
+        momentumVelocity = dragVelocity;
+        // speedMultiplier stays at 0 (hover) or 1 (outside) — momentum ignores it
+        // The tick() momentum branch handles deceleration independently
+      }
+    };
+
+    container.addEventListener("pointerdown", onPointerDown);
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      setupMarquee(".reviews-container-top", 1, 30);
+      setupMarquee(".reviews-container-bottom", -1, 30);
+    }, 200);
+  });
+</script>

@@ -1,0 +1,115 @@
+---
+import RippleButton from "../reusable-elements/RippleButton.astro";
+
+const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'Our Team', href: '/our-team' },
+  { name: 'Shop', href: 'https://shop.passionvet.com/' },
+  { name: 'Contact Us', href: '/' },
+];
+
+const socials = [
+  { name: 'Facebook', href: '#', icon: 'facebook-icon' },
+  { name: 'Instagram', href: '#', icon: 'instagram-icon' },
+];
+---
+<div class="flex flex-col dm-sans-font min-h-[calc(100svh-(--spacing(33)))]" >
+<section class="w-full bg-white overflow-hidden">
+  <div class="flex flex-col lg:flex-row min-h-125 lg:min-h-[70vh]">
+    
+    <!-- Image Side (Left) -->
+    <div class="w-full lg:w-1/2 relative min-h-87.5">
+      <img 
+        src="src/assets/cta-img.jpg" 
+        alt="CTA section" 
+        class="absolute inset-0 w-full h-full object-cover object-[50%_40%]"
+      />
+    </div>
+
+    <!-- Content Side (Right) -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center bg-slate-900 px-8 py-16 lg:px-20">
+      <div class="max-w-xl text-center lg:text-left">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          Paws in Good Hands.
+        </h2>
+        <p class="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
+          From routine wellness exams to advanced diagnostics, we provide the compassionate care your pet deserves to live their healthiest, happiest life.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <RippleButton href="https://wa.me/81685850" target="_blank">
+              Book an Appointment
+            </RippleButton>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="relative z-10 bg-slate-900 text-slate-300 py-12 px-6 shrink-0 -mt-px">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+    
+    <!-- 1st Section: Company & Socials -->
+    <div class="flex flex-col gap-4">
+      <h2 class="text-2xl font-bold text-white">Passion Vet</h2>
+      <div class="flex gap-4 mt-2">
+        {socials.map((social) => (
+          <a href={social.href} class="hover:text-white transition-colors" aria-label={social.name}>
+            {/* You can replace these with actual SVG icons */}
+            <span class="text-xs uppercase tracking-widest">{social.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- 2nd Section: Nav Links -->
+    <div>
+      <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="hover:text-cyan-400 transition-colors">
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- 3rd Section: Contact -->
+    <div>
+      <h3 class="text-lg font-semibold text-white mb-4">Get in Touch</h3>
+      <ul class="space-y-3 text-sm">
+        <li class="flex items-center gap-2">
+          <span>Email:</span>
+          <a href="mailto:hello@example.com" class="text-cyan-400 hover:underline">passionvet@gmail.com</a>
+        </li>
+        <li>
+          <span>Location:</span>
+          <p class="mt-1">Blk 136 Marsiling Road, #01-2180, Singapore 730136</p>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="max-w-7xl mx-auto mt-4 pt-8 border-t border-slate-800 text-center text-xs">
+    <p>&copy; {currentYear} This is a mockup website of Passion Veterinary Clinic</p>
+  </div>
+</footer>
+</div>
+
+<style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+    .dm-sans-font {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+    }
+</style>

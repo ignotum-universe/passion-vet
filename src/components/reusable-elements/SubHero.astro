@@ -1,0 +1,40 @@
+---
+// src/components/Hero.astro
+interface Props {
+  title: string;
+  bgImage?: string; // Optional, defaults to your hero image
+}
+
+const { 
+  title, 
+  bgImage = "src/assets/hero.jpg" 
+} = Astro.props;
+---
+
+<div
+  class="relative h-[30vh] bg-cover bg-center overflow-hidden mt-23 lg:mt-33"
+  style={`background-image: url(${bgImage});`}
+>
+  <section
+    class="absolute inset-0 flex flex-col justify-center items-center md:items-start p-6 md:p-15 bg-black/10"
+  >
+    <div class="w-full md:w-[50%] lg:w-[40%] flex justify-center md:justify-start items-center">
+      <h2
+        class="text-white text-[3em] md:text-6xl lg:text-[4em] font-bold leading-tight dm-sans-font md:leading-none text-center md:text-left"
+      >
+        {title}
+      </h2>
+    </div>
+  </section>
+</div>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+  .dm-sans-font {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+</style>

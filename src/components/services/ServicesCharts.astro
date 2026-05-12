@@ -1,0 +1,171 @@
+---
+const pricedServices = [
+    {
+        name: "Standard Consultation",
+        price: "$48",
+        detail: "Up to 30 mins (excludes meds/tests)",
+    },
+    { name: "Walk-in Consultation", price: "$58", detail: "Up to 30 mins" },
+    { name: "Microchipping", price: "$55", detail: "" },
+    {
+        name: "Vaccination",
+        price: "$48",
+        detail: "Canine (DHLP/PV) / Feline (4 in 1)",
+    },
+    { name: "Deworming", price: "$5.80", detail: "Cats < 4kg, Dogs < 10kg" },
+    {
+        name: "In-house Blood tests",
+        price: "$99 - $280",
+        detail: "Depending on types of test",
+    },
+    {
+        name: "Radiography (X-Ray)",
+        price: "$98",
+        detail: "1 view ($179 for 2 views)",
+    },
+    { name: "Acupuncture", price: "$189", detail: "4 Sessions" },
+];
+
+const otherServices = [
+    "Hospitalisation",
+    "Soft Tissue Surgeries",
+    "Fracture repairs",
+    "Health Checks",
+    "Preventative Medicine",
+    "Sterilisation/Castration",
+    "Dental scaling",
+    "Ultrasound",
+    "TCM Consultation",
+    "Hydrotherapy",
+    "Puppy Class",
+];
+---
+
+<section class="w-full mx-auto py-12 px-4 dm-sans-font">
+    <div class="mb-4 relative z-10">
+        <h2 class="text-2xl font-bold text-slate-800">Common Services</h2>
+        <p class="text-sm text-slate-500">Prices listed are before GST</p>
+    </div>
+
+    <!-- Priced Services List -->
+    <div class="pricing-section-container flex flex-col gap-4 mb-12">
+        {
+            pricedServices.map((service) => (
+                <div class="service-row-item group flex justify-between items-center p-6 bg-slate-100 border-l-4 border-[#0047AB] rounded-r-lg transition-all duration-200 hover:translate-x-1 hover:bg-emerald-50/50">
+                    <div class="pr-4">
+                        <h3 class="text-lg font-semibold text-slate-800 group-hover:text-emerald-700 transition-colors">
+                            {service.name}
+                        </h3>
+                        {service.detail && (
+                            <p class="text-sm text-slate-600 mt-1">
+                                {service.detail}
+                            </p>
+                        )}
+                    </div>
+                    <div class="text-xl font-bold text-slate-900 whitespace-nowrap">
+                        {service.price}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+
+    <!-- Other Services Tag Cloud -->
+    <div class="border-t border-slate-200 pt-8">
+        <h3
+            class="text-lg font-bold text-slate-800 mb-4 tracking-tight uppercase text-sm"
+        >
+            Other Available Services
+        </h3>
+        <div class="flex flex-wrap gap-2">
+            {
+                otherServices.map((service) => (
+                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-600 text-sm rounded-full hover:border-[#0047AB] hover:text-[#0047AB] transition-colors cursor-default">
+                        {service}
+                    </span>
+                ))
+            }
+        </div>
+        <p class="mt-6 text-xs text-slate-400 italic">
+            *For surgery, hospitalization, and specialized treatments, please
+            contact us for a detailed quote.
+        </p>
+    </div>
+</section>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+    section {
+        padding: 4rem clamp(1rem, 20vw, 32rem);
+        
+    }
+
+    .service-row-item {
+        opacity: 0;
+    }
+
+    .dm-sans-font {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: <weight>;
+        font-style: normal;
+    }
+
+    @media (max-width: 1280px) {
+        section {
+            padding: 4rem clamp(0px, 7vw, 32rem);
+        }
+    }
+
+    @media (max-width: 640px) {
+        section {
+            padding: 4rem clamp(0px, 5vw, 32rem);
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Use a function to initialize to ensure DOM is ready
+    const initAnimations = () => {
+        // Animate the Priced Rows
+        gsap.fromTo(
+            ".service-row-item",
+            { opacity: 0, y: 40 }, // explicit "from" state (overrides CSS)
+            {
+                delay: 0.1,
+                opacity: 1, // explicit "to" state
+                y: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "power2.in",
+                clearProps: "transform", // only clear transform, leave opacity at 1
+            },
+        );
+
+        // Animate the Tag Cloud
+        gsap.from(".service-tag", {
+            scrollTrigger: {
+                trigger: ".tag-cloud-container",
+                start: "top 90%",
+            },
+            scale: 0.5,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.03,
+            ease: "back.out(1.7)",
+            clearProps: "all",
+        });
+    };
+
+    // Run on initial load
+    initAnimations();
+
+    // Necessary if you use Astro's View Transitions
+    document.addEventListener("astro:after-swap", initAnimations);
+</script>

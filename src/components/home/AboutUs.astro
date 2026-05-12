@@ -1,0 +1,136 @@
+---
+import Overline from "../reusable-elements/Overline.astro";
+
+const services = [
+  {
+    name: "Primary Care",
+    desc: "General health check & Walk-in Consults",
+    icon: "M8 3V5H6V9C6 11.2091 7.79086 13 10 13C12.2091 13 14 11.2091 14 9V5H12V3H15C15.5523 3 16 3.44772 16 4V9C16 11.9727 13.8381 14.4405 11.0008 14.9169L11 16.5C11 18.433 12.567 20 14.5 20C15.9973 20 17.275 19.0598 17.7749 17.7375C16.7283 17.27 16 16.2201 16 15C16 13.3431 17.3431 12 19 12C20.6569 12 22 13.3431 22 15C22 16.3711 21.0802 17.5274 19.824 17.8854C19.2102 20.252 17.0592 22 14.5 22C11.4624 22 9 19.5376 9 16.5L9.00019 14.9171C6.16238 14.4411 4 11.9731 4 9V4C4 3.44772 4.44772 3 5 3H8ZM19 14C18.4477 14 18 14.4477 18 15C18 15.5523 18.4477 16 19 16C19.5523 16 20 15.5523 20 15C20 14.4477 19.5523 14 19 14Z",
+  },
+    {
+    name: "Daily Wellness",
+    desc: "Vaccinations, Microchipping, Deworming",
+    icon: "M19.0001 13.9999V16.9999H22.0001V18.9999H18.9991L19.0001 21.9999H17.0001L16.9991 18.9999H14.0001V16.9999H17.0001V13.9999H19.0001ZM20.2426 4.75736C22.4033 6.92253 22.5715 10.3141 20.7498 12.667C19.9261 12.2403 18.9911 12 18 12C14.6863 12 12 14.6863 12 18C12 19.0089 12.249 19.9596 12.6889 20.794L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736Z",
+  },
+      {
+    name: "Diagnostics",
+    desc: "Blood Tests, X-Rays, Ultrasound",
+    icon: "M13.1962 2.26797L16.4462 7.89714C16.7223 8.37543 16.5584 8.98702 16.0801 9.26316L14.7806 10.0123L15.7811 11.7452L14.049 12.7452L13.0485 11.0123L11.75 11.7632C11.2717 12.0393 10.6601 11.8754 10.384 11.3971L8.5462 8.21466C6.49383 8.83736 5 10.7442 5 13C5 13.6254 5.1148 14.2239 5.32447 14.7757C6.0992 14.284 7.01643 14 8 14C9.68408 14 11.1737 14.8326 12.0797 16.1086L19.7681 11.6704L20.7681 13.4025L12.8898 17.951C12.962 18.2893 13 18.6402 13 19C13 19.3427 12.9655 19.6774 12.8999 20.0007L21 20V22L4.00054 22.0012C3.3723 21.1654 3 20.1262 3 19C3 17.9928 3.29782 17.0551 3.81021 16.2703C3.29276 15.2948 3 14.1816 3 13C3 10.0047 4.88131 7.44881 7.52677 6.44948L7.13397 5.76797C6.58169 4.81139 6.90944 3.58821 7.86603 3.03592L10.4641 1.53592C11.4207 0.983638 12.6439 1.31139 13.1962 2.26797ZM8 16C6.34315 16 5 17.3432 5 19C5 19.3506 5.06014 19.6872 5.17067 19.9999H10.8293C10.9399 19.6872 11 19.3506 11 19C11 17.3432 9.65685 16 8 16ZM11.4641 3.26797L8.86602 4.76797L11.616 9.53111L14.2141 8.03111L11.4641 3.26797Z",
+  },
+      {
+    name: "Surgery & Dental",
+    desc: "Specialized procedures and dental scaling",
+    icon: "M21.6779 7.97918L20.2637 9.39339L18.1424 7.27207L16.021 9.39339L19.5566 12.9289L18.1424 14.3431L17.4353 13.636L11.0713 20H5.41444L3.29312 22.1213L1.87891 20.7071L4.00023 18.5858V12.9289L10.3642 6.56497L9.65708 5.85786L11.0713 4.44365L14.6068 7.97918L16.7281 5.85786L14.6068 3.73654L16.021 2.32233L21.6779 7.97918ZM9.65708 14.3431L6.82865 11.5147L5.41444 12.9289L8.24287 15.7574L9.65708 14.3431ZM12.4855 11.5147L9.65708 8.68629L8.24287 10.1005L11.0713 12.9289L12.4855 11.5147Z",
+  },
+      {
+    name: "Holistic & Recovery",
+    desc: "Acupuncture, TCM, and Hydrotherapy",
+    icon: "M18.3643 10.9792C19.9264 12.5413 19.9264 15.0739 18.3643 16.636L12.7075 22.2929C12.317 22.6834 11.6838 22.6834 11.2933 22.2929L5.63642 16.636C4.07432 15.0739 4.07432 12.5413 5.63642 10.9792C7.19851 9.41709 9.73117 9.41709 11.2933 10.9792L11.9997 11.6856L12.7075 10.9792C14.2696 9.41709 16.8022 9.41709 18.3643 10.9792ZM12.0004 1C14.2095 1 16.0004 2.79086 16.0004 5C16.0004 7.20914 14.2095 9 12.0004 9C9.79124 9 8.00038 7.20914 8.00038 5C8.00038 2.79086 9.79124 1 12.0004 1Z",
+  },
+      {
+    name: "Lifestyle",
+    desc: "Puppy classes and health certifications",
+    icon: "M20.998 3V5C20.998 14.6274 15.6255 19 8.99805 19L7.0964 18.9999C7.3079 15.9876 8.24541 14.1648 10.6939 11.9989C11.8979 10.9338 11.7965 10.3189 11.2029 10.6721C7.1193 13.1016 5.09114 16.3862 5.00119 21.6302L4.99805 22H2.99805C2.99805 20.6373 3.11376 19.3997 3.34381 18.2682C3.1133 16.9741 2.99805 15.2176 2.99805 13C2.99805 7.47715 7.4752 3 12.998 3C14.998 3 16.998 4 20.998 3Z",
+  },
+];
+---
+
+<head> </head>
+<main class="">
+    <Overline eyebrow="about us" />
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-6">
+    <!-- Left Column: Heading -->
+    <h1 class="dm-sans-font text-[3rem] leading-[1.1] pt-3">
+        Dedicated to 
+        <span class="cormorant-garamond-font bg-linear-to-r from-[#D81B60] to-[#F06292] bg-clip-text text-transparent italic">
+            Compassionate
+        </span> 
+        Care
+    </h1>
+
+    <!-- Right Column: Paragraph -->
+    <p class="dm-sans-font text-[1rem] leading-relaxed text-gray-700">
+        Established in 2015, Passion Vet Clinic was founded on a simple
+        mission: to provide the best possible care for your pets. Our team
+        of motivated veterinarians and loving nurses works in a fully
+        computerized, modern environment designed for comfort and precision.
+    </p>
+</section>
+    <section class="grid grid-cols-2 lg:grid-cols-3 gap-5 w-full mb-5">
+
+{services.map((service) => (
+    /* 1. Added the unique 'key' using the name */
+    <div class="group p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 dm-sans-font md:p-8"
+    >
+      <!-- Icon Container -->
+<div class="w-12 h-12 mb-6 flex items-center justify-center rounded-xl bg-[#C5D8F5]/30 group-hover:bg-linear-to-br group-hover:from-[#D81B60] group-hover:to-[#F06292] transition-all duration-500">
+  
+  <span class="text-[#0047AB] group-hover:text-white transition-colors duration-300">
+    <svg 
+      viewBox="0 0 24 24" 
+      class="w-6 h-6" 
+      fill="currentColor"
+    >
+      <path d={service.icon} />
+    </svg>
+  </span>
+</div>
+
+      <h3 class="dm-sans-font font-bold text-xl mb-2">
+        {service.name}
+      </h3>
+      <p class="text-gray-500 text-sm leading-relaxed">
+        {service.desc}
+      </p>
+    </div>
+  ))}
+</div>
+    </section>
+    <div
+        class="relative bg-[url(src/assets/abouttThumbnail.jpg)] bg-center aspect-4/2 bg-cover w-full h-auto rounded-[20px]"
+    >
+    </div>
+</main>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+    main {
+        padding: 4rem clamp(1rem, 20vw, 32rem);
+        transition: padding 0.2s ease-out;
+    }
+
+    .cormorant-garamond-font {
+        font-family: "Cormorant Garamond", serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    .dm-sans-font {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .aboutservices {
+        background-color: #c5d8f5;
+        font-size: 1rem;
+        color: black;
+        min-height: 2.5rem;
+        border-radius: 20px;
+    }
+
+    @media (max-width: 1280px) {
+        main {
+            padding: 4rem clamp(0px, 7vw, 32rem);
+        }
+    }
+
+    @media (max-width: 640px) {
+        main {
+            padding: 4rem clamp(0px, 5vw, 32rem);
+        }
+    }
+</style>

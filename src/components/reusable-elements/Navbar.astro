@@ -1,0 +1,373 @@
+---
+const phoneNumber = "+65 8168 5850";
+const address = "136 Marsiling road #01-2180 Singapore 730136";
+const email = "passionvet@gmail.com";
+const hours = "Mon - Fri: 10am - 7pm, Sat - Sun 10am - 5pm";
+const NAV_ITEMS = [
+    { name: "Services", link: "services" },
+    { name: "Our Team", link: "our-team" },
+    { name: "Shop", link: "https://shop.passionvet.com/", isExternal: true },
+    { name: "Contact Us", link: "contact" },
+];
+---
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+    .cormorant-garamond-font {
+        font-family: "Cormorant Garamond", serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    .nav-link {
+        position: relative;
+        perspective: 1000px;
+        display: inline-block;
+        line-height: 1.2;
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #111;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .text-top,
+    .text-bottom {
+        display: block;
+        transition: color 0.2s;
+    }
+    .nav-link:hover {
+        color: #0047ab;
+    }
+
+    .ham-bar {
+        display: block;
+        height: 2px;
+        background: #111;
+        border-radius: 2px;
+        transition:
+            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.25s ease,
+            width 0.3s ease;
+        transform-origin: center;
+    }
+
+    /* Full-screen mobile overlay */
+    .mobile-overlay {
+        position: fixed;
+        inset: 0;
+        background: #f2f0ef;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        padding-top: 40vh;
+        overflow-y: auto;
+        transform: translateY(-100%);
+        transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+        pointer-events: none;
+    }
+    .mobile-overlay.open {
+        transform: translateY(0);
+        pointer-events: all;
+    }
+
+    .mobile-nav-item {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: clamp(2.5rem, 10vw, 5rem);
+        color: #111;
+        text-decoration: none;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        padding: 0.15em 0;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s ease,
+            color 0.2s;
+        display: block;
+        text-align: center;
+    }
+    .mobile-overlay.open .mobile-nav-item {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .mobile-overlay.open .mobile-nav-item:nth-child(3) {
+        transition-delay: 0.15s;
+    }
+    .mobile-overlay.open .mobile-nav-item:nth-child(4) {
+        transition-delay: 0.22s;
+    }
+    .mobile-overlay.open .mobile-nav-item:nth-child(5) {
+        transition-delay: 0.29s;
+    }
+    .mobile-overlay.open .mobile-nav-item:nth-child(6) {
+        transition-delay: 0.36s;
+    }
+    .mobile-nav-item:hover {
+        color: #0047ab;
+    }
+
+    .overlay-accent {
+        width: 40px;
+        height: 2px;
+        background: #0047ab;
+        margin: 1.5rem auto 0;
+        opacity: 0;
+        transform: scaleX(0);
+        transition:
+            opacity 0.4s ease 0.45s,
+            transform 0.4s ease 0.45s;
+        transform-origin: left;
+    }
+    .mobile-overlay.open .overlay-accent {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+
+    /* Navbar scroll state */
+    nav.scrolled {
+        background: rgba(255, 255, 255, 0.97) !important;
+        backdrop-filter: blur(8px);
+    }
+
+    /* Hamburger button */
+    .ham-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        padding: 0.5rem;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        z-index: 50;
+    }
+
+    /* Close button */
+    .close-btn {
+        position: absolute;
+        top: 1.35rem;
+        right: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        padding: 0.5rem;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        z-index: 50;
+    }
+
+    @media (min-width: 768px) {
+        .ham-btn {
+            display: none;
+        }
+    }
+</style>
+
+<div class="sticky top-0 left-0 right-0 z-50 w-full block">
+    <!-- UTILITY BAR -->
+    <div class="hidden lg:block bg-[#0047AB] text-white py-2 text-sm">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Contact Info -->
+            <div class="flex gap-6">
+                <a
+                    href={`tel:${phoneNumber}`}
+                    class="flex items-center gap-2 hover:text-teal-400 transition-colors"
+                >
+                    <span class="text-teal-500 font-bold">Call:</span>
+                    {phoneNumber}
+                </a>
+                <div class="flex items-center gap-2">
+                    <span class="text-teal-500 font-bold">Find Us:</span>
+                    {address}
+                </div>
+                <div class="hidden xl:flex items-center gap-2">
+                    <span class="text-teal-500 font-bold">Email Us:</span>
+                    {email}
+                </div>
+            </div>
+
+            <!-- Operating Hours / Emergency Status -->
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                        ></span>
+                        <span
+                            class="relative inline-flex rounded-full h-2 w-2 bg-green-500"
+                        ></span>
+                    </span>
+                    {hours}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="main-nav" class="bg-white transition-all duration-300" style="">
+        <div
+            class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between"
+        >
+            <a href="/" class="navbar-logo">
+                <img
+                    src="src/assets/logo2.png"
+                    alt="Logo"
+                    class="h-16 w-auto transition-all"
+                />
+            </a>
+
+            <!-- Desktop links -->
+            <div class="hidden md:flex items-center gap-10 pl-10">
+                {
+                    NAV_ITEMS.map((item) => (
+                        <a
+                            href={item.isExternal ? item.link : `/${item.link}`}
+                            class="nav-link overflow-hidden h-[1.2em] block"
+                            target={item.isExternal ? "_blank" : "_self"}
+                            rel={item.isExternal ? "noopener noreferrer" : ""}
+                        >
+                            <span class="flex flex-column relative h-full">
+                                <span class="text-top block">{item.name}</span>
+                                <span class="text-bottom block absolute top-full left-0">
+                                    {item.name}
+                                </span>
+                            </span>
+                        </a>
+                    ))
+                }
+            </div>
+
+            <!-- Hamburger (mobile only) -->
+            <button
+                id="menu-open-btn"
+                class="ham-btn md:hidden"
+                aria-label="Open navigation menu"
+            >
+                <span class="ham-bar" style="width: 24px;"></span>
+                <span class="ham-bar" style="width: 16px;"></span>
+                <span class="ham-bar" style="width: 24px;"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE FULL-SCREEN OVERLAY -->
+    <div
+        id="mobile-overlay"
+        class="mobile-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+    >
+        <!-- Overlay font -->
+        <span
+            class="absolute cormorant-garamond-font"
+            style="top: 1.5rem; left: 1.5rem; font-size: 2rem; color:#111;"
+        >
+            Passion Vet
+        </span>
+
+        <!-- Close button -->
+        <button
+            id="menu-close-btn"
+            class="close-btn mt-4"
+            aria-label="Close navigation menu"
+        >
+            <span
+                class="ham-bar"
+                style="width: 24px; background: #111; transform: translateY(1px) rotate(45deg);"
+            ></span>
+            <span
+                class="ham-bar"
+                style="width: 24px; background: #111; transform: translateY(-1px) rotate(-45deg);"
+            ></span>
+        </button>
+
+        <!-- Nav items -->
+        {
+            NAV_ITEMS.map((item) => (
+                <a
+                    href={item.isExternal ? item.link : `/${item.link}`}
+                    class="mobile-nav-item"
+                    data-close-menu
+                    target={item.isExternal ? "_blank" : "_self"}
+                    rel={item.isExternal ? "noopener noreferrer" : ""}
+                >
+                    {item.name}
+                </a>
+            ))
+        }
+
+        <div class="overlay-accent"></div>
+    </div>
+</div>
+<script>
+    import { gsap } from "gsap";
+
+    const nav = document.getElementById("main-nav")!;
+    const links = document.querySelectorAll(".nav-link");
+    const overlay = document.getElementById("mobile-overlay")!;
+    const openBtn = document.getElementById("menu-open-btn")!;
+    const closeBtn = document.getElementById("menu-close-btn")!;
+    const closeLinks = document.querySelectorAll<HTMLElement>("[data-close-menu]");
+
+    // Scroll: add/remove .scrolled class
+    window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 20);
+    });
+
+    function openMenu() {
+        overlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu() {
+        overlay.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+    openBtn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    closeLinks.forEach((link) => link.addEventListener("click", closeMenu));
+
+    links.forEach((link) => {
+        const topText = link.querySelector(".text-top");
+        const bottomText = link.querySelector(".text-bottom");
+
+        // Create a timeline for each link
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to(topText, {
+            yPercent: -100,
+            rotationX: -90, // Sharper rotation for a "flip" feel
+            opacity: 0,
+            duration: 0.4,
+            ease: "power2.inOut",
+        }).fromTo(
+            bottomText,
+            { yPercent: 0, rotationX: 90, opacity: 0 },
+            {
+                yPercent: -100,
+                rotationX: 0,
+                opacity: 1,
+                duration: 0.4,
+                ease: "power2.inOut",
+            },
+            0,
+        );
+
+        link.addEventListener("mouseenter", () => tl.play());
+        link.addEventListener("mouseleave", () => tl.reverse());
+    });
+</script>

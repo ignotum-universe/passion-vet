@@ -1,0 +1,97 @@
+---
+// ../layouts/Layout.astro
+import '../styles/global.css'; // Your Tailwind v4 entry point
+import Footer from "../components/reusable-elements/Footer.astro"
+const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Road" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+	</head>
+<body>
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <div class="grow">
+      <slot /> <!-- Your Astro page content goes here -->
+      </div>
+      <Footer></Footer>
+    </div>
+  </div>
+</body>
+</html>
+
+<style>
+  html {
+    /* Required for normalizeScroll but allow body to grow */
+    overscroll-behavior: none; 
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    /* REMOVE height: 100% - this is likely your main culprit */
+    min-height: 100vh; 
+    opacity: 0;
+  }
+
+  #smooth-wrapper {
+    overflow: hidden;
+    position: fixed;
+    inset: 0;
+  }
+
+  #smooth-content {
+    width: 100%;
+    /* Ensure it starts at least full screen */
+    min-height: 100vh;
+    /* Ensures margin-collapsing doesn't hide the footer */
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { ScrollSmoother } from "gsap/ScrollSmoother";
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  // Function to initialize everything safely
+  const initSmoother = () => {
+    const smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 0.8,
+      effects: true,
+      normalizeScroll: true,
+    });
+
+    // bottom bar of footer only appears in inspect mode, mimic inspect mode refresh
+    setTimeout(() => {
+      smoother.refresh();
+      ScrollTrigger.refresh();
+      
+      // Only show the body after the calculation is done
+      gsap.to("body", { opacity: 1, duration: 0.5 });
+    }, 200);
+
+    window.addEventListener("resize", () => {
+      smoother.refresh();
+      ScrollTrigger.refresh();
+    });
+  };
+
+  // Run on load, but with a double-frame buffer
+  window.addEventListener("load", () => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(initSmoother);
+    });
+  });
+</script>

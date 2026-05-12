@@ -1,0 +1,16 @@
+---
+interface Props {
+  eyebrow: string;
+  align?: 'left' | 'center';
+}
+
+const { eyebrow, align = 'left' } = Astro.props;
+const alignmentClass = align === 'center' ? 'text-center' : 'text-left';
+---
+
+<header class={`max-w-full ${alignmentClass}`}>
+  <span class="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-widest uppercase border border-[#0047AB] text-[#0047AB] bg-white rounded-sm pointer-events-none">
+    {eyebrow}
+  </span>
+
+</header>
