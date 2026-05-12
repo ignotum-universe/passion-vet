@@ -296,6 +296,8 @@ const nurses = [
         role.textContent  = vet.role;
         description.textContent = vet.description;
 
+        document.body.style.overflow = "hidden";
+
         overlay.classList.remove("pointer-events-none");
         isOpen = true;
 
@@ -312,7 +314,8 @@ const nurses = [
     function closeModal() {
         if (!isOpen) return;
         isOpen = false;
-
+        document.body.style.overflow = "";
+        
         const tl = gsap.timeline({
             onComplete: () => overlay.classList.add("pointer-events-none"),
         });
