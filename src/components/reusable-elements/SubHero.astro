@@ -1,19 +1,27 @@
 ---
-// src/components/Hero.astro
+// SubHero.astro
+import { getImage } from "astro:assets";
+import defaultSubHero from "../../assets/hero.jpg";
+
 interface Props {
   title: string;
-  bgImage?: string; // Optional, defaults to your hero image
+  bgImage?: ImageMetadata | string; 
 }
 
 const { 
   title, 
-  bgImage = "src/assets/hero.jpg" 
+  bgImage = defaultSubHero 
 } = Astro.props;
+
+const subBackground = await getImage({
+  src: bgImage,
+  format: 'webp'
+});
 ---
 
 <div
   class="relative h-[30vh] bg-cover bg-center overflow-hidden mt-23 lg:mt-33"
-  style={`background-image: url(${bgImage});`}
+  style={`background-image: url(${subBackground.src});`}
 >
   <section
     class="absolute inset-0 flex flex-col justify-center items-center md:items-start p-6 md:p-15 bg-black/10"
@@ -34,7 +42,7 @@ const {
   .dm-sans-font {
     font-family: "DM Sans", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 700; 
     font-style: normal;
   }
 </style>

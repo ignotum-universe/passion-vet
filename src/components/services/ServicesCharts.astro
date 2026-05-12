@@ -147,20 +147,6 @@ const otherServices = [
                 clearProps: "transform", // only clear transform, leave opacity at 1
             },
         );
-
-        // Animate the Tag Cloud
-        gsap.from(".service-tag", {
-            scrollTrigger: {
-                trigger: ".tag-cloud-container",
-                start: "top 90%",
-            },
-            scale: 0.5,
-            opacity: 0,
-            duration: 0.4,
-            stagger: 0.03,
-            ease: "back.out(1.7)",
-            clearProps: "all",
-        });
     };
 
     // Run on initial load

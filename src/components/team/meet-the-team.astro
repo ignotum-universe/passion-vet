@@ -1,21 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 
-// Import images individually
-import vet1 from "../../staff/1.jpg";
-import vet2 from "../../staff/2.jpeg";
-import vet3 from "../../staff/3.jpg";
-import vet4 from "../../staff/4.jpg";
-import nurse5 from "../../staff/5.jpeg";
-import nurse6 from "../../staff/6.jpeg";
-import nurse7 from "../../staff/7.jpeg";
+import vet1 from "../../assets/staff/1.jpg";
+import vet2 from "../../assets/staff/2.jpeg";
+import vet3 from "../../assets/staff/3.jpg";
+import vet4 from "../../assets/staff/4.jpg";
+import nurse5 from "../../assets/staff/5.jpeg";
+import nurse6 from "../../assets/staff/6.jpeg";
+import nurse7 from "../../assets/staff/7.jpeg";
 
 const vets = [
     {
         name: "Dr. Kerrie Lek",
         credentials: "BVSc (Hons) (Melbourne), Grad Dip VCHM (IVAS)",
         role: "Veterinary Surgeon",
-        profile: vet1, // Use the imported variable, not a string
+        profile: vet1, 
         description: "Dr. Kerrie Lek graduated from the University of Melbourne in 2011...",
     },
     {
@@ -288,9 +287,9 @@ const nurses = [
     });
 
     // Read more function
-    function openModal(vet: { name: string; credentials: string; role: string; profile: string; description: string }) {
+    function openModal(vet: { name: string; credentials: string; role: string; profile: any; description: string }) {
         // Populate content
-        photo.src         = vet.profile;
+        photo.src         = vet.profile.src || vet.profile;
         photo.alt         = vet.name;
         name.textContent  = vet.name;
         credentials.textContent = vet.credentials;

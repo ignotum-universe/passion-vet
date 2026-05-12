@@ -1,5 +1,8 @@
 ---
+// CTA SECTION AND FOOTER ARE COMBINED
+import { Image } from "astro:assets";
 import RippleButton from "../reusable-elements/RippleButton.astro";
+import footerImg from "../../assets/cta-img.jpg";
 
 const currentYear = new Date().getFullYear();
 
@@ -21,13 +24,13 @@ const socials = [
   <div class="flex flex-col lg:flex-row min-h-125 lg:min-h-[70vh]">
     
     <!-- Image Side (Left) -->
-    <div class="w-full lg:w-1/2 relative min-h-87.5">
-      <img 
-        src="src/assets/cta-img.jpg" 
-        alt="CTA section" 
-        class="absolute inset-0 w-full h-full object-cover object-[50%_40%]"
-      />
-    </div>
+<div class="w-full lg:w-1/2 relative min-h-87.5">
+  <Image 
+    src={footerImg} 
+    alt="CTA section" 
+    class="absolute inset-0 w-full h-full object-cover object-[50%_40%]"
+  />
+</div>
 
     <!-- Content Side (Right) -->
     <div class="w-full lg:w-1/2 flex items-center justify-center bg-slate-900 px-8 py-16 lg:px-20">
@@ -36,7 +39,7 @@ const socials = [
           Paws in Good Hands.
         </h2>
         <p class="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-          From routine wellness exams to advanced diagnostics, we provide the compassionate care your pet deserves to live their healthiest, happiest life.
+          From routine wellness exams to advanced diagnostics, we provide the compassionate care your pet deserves.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <RippleButton href="https://wa.me/81685850" target="_blank">

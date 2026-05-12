@@ -1,9 +1,27 @@
 ---
+import { getImage } from "astro:assets";
 import RippleButton from "../reusable-elements/RippleButton.astro";
+import Herobanner from "../../assets/hero.jpg"
+
+interface Props {
+  title: string;
+  bgImage?: ImageMetadata | string; 
+}
+
+const { 
+  title, 
+  bgImage = Herobanner
+} = Astro.props;
+
+const Background = await getImage({
+  src: bgImage,
+  format: 'webp'
+});
 ---
 
 <div
-    class="relative h-[80vh] bg-[url(src/assets/hero.jpg)] bg-cover bg-center overflow-hidden mt-23 lg:mt-33"
+    class="relative h-[80vh] bg-cover bg-center overflow-hidden mt-23 lg:mt-33"
+    style={`background-image: url(${Background.src});`}
 >
     <section
         class="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-15 bg-black/10"
@@ -18,7 +36,6 @@ import RippleButton from "../reusable-elements/RippleButton.astro";
                 Complete veterinary care you can trust
             </h2>
 
-            <!-- Button: Full width on tiny screens, auto-width on desktop -->
              <div id="hero-button" class="opacity-0">
                 <RippleButton class="" href="https://wa.me/81685850" target="_blank">Book an Appointment </RippleButton>
              </div>
@@ -40,10 +57,9 @@ import RippleButton from "../reusable-elements/RippleButton.astro";
 <script>
     import { gsap } from "gsap";
 
-    // 1. Use an optional check
     const heading = document.querySelector('#hero-text');
     
-    // Only run if the element actually exists
+    // Only run if the element exists
     if (heading && heading.textContent) {
         const text = heading.textContent.trim();
         

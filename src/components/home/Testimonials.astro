@@ -1,8 +1,4 @@
 ---
-// In case I forget, the current idea is for there to be 2 auto scrolling carousel rows of reviews
-//  each scrolling in opposite directions
-// Title in the center of both carousel
-// 1. Import the data directly (Astro handles the JSON parsing for you)
 import reviewsData from "../../data/Reviews.json";
 import profilepic from "../../assets/logo2.png";
 import RippleButton from "../reusable-elements/RippleButton.astro";
@@ -17,7 +13,7 @@ interface RawReview {
   "Review Images": string;
 }
 
-// 1. Clean the data as per normal
+// 1. Clean the data
 const allReviews = (reviewsData as RawReview[]).map((rev) => ({
   name: rev["Reviewer Name"],
   content: rev["Review Content"],
@@ -181,7 +177,6 @@ const bottomRow = allReviews.slice(midPoint).toReversed();
   }
 </style>
 
-<!-- 5. Use the script ONLY for GSAP animation -->
 <script>
   import { gsap } from "gsap";
 
@@ -204,10 +199,10 @@ const bottomRow = allReviews.slice(midPoint).toReversed();
     let dragStartContainerX = 0;
     let speedMultiplier = 1;
 
-    // --- NEW: velocity tracking ---
+    // velocity tracking
     let lastPointerX = 0;
     let lastPointerTime = 0;
-    let dragVelocity = 0;         // px per frame, derived from pointer delta
+    let dragVelocity = 0;
     let momentumVelocity = 0;     // active momentum after release
     let isMomentum = false;
 
@@ -270,9 +265,10 @@ const bottomRow = allReviews.slice(midPoint).toReversed();
       );
     });
 
+    // Cancel any active momentum
     const onPointerDown = (e: PointerEvent) => {
       isDragging = true;
-      isMomentum = false;       // Cancel any active momentum
+      isMomentum = false;    
       dragStartX = e.clientX;
       dragStartContainerX = currentX;
       lastPointerX = e.clientX;

@@ -345,12 +345,12 @@ const NAV_ITEMS = [
         const topText = link.querySelector(".text-top");
         const bottomText = link.querySelector(".text-bottom");
 
-        // Create a timeline for each link
+        // timeline for each link
         const tl = gsap.timeline({ paused: true });
 
         tl.to(topText, {
             yPercent: -100,
-            rotationX: -90, // Sharper rotation for a "flip" feel
+            rotationX: -90,
             opacity: 0,
             duration: 0.4,
             ease: "power2.inOut",

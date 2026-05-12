@@ -1,5 +1,23 @@
 ---
 import Overline from "../reusable-elements/Overline.astro";
+import { getImage } from "astro:assets";
+import aboutbanner from "../../assets/abouttThumbnail.jpg"
+
+
+interface Props {
+  title: string;
+  bgImage?: ImageMetadata | string; 
+}
+
+const { 
+  title, 
+  bgImage = aboutbanner
+} = Astro.props;
+
+const aboutBackground = await getImage({
+  src: bgImage,
+  format: 'webp'
+});
 
 const services = [
   {
@@ -87,7 +105,8 @@ const services = [
 </div>
     </section>
     <div
-        class="relative bg-[url(src/assets/abouttThumbnail.jpg)] bg-center aspect-4/2 bg-cover w-full h-auto rounded-[20px]"
+        class="relative bg-center aspect-4/2 bg-cover w-full h-auto rounded-[20px]"
+        style={`background-image: url(${aboutBackground.src});`}
     >
     </div>
 </main>
