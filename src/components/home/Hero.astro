@@ -4,12 +4,10 @@ import RippleButton from "../reusable-elements/RippleButton.astro";
 import Herobanner from "../../assets/hero.jpg"
 
 interface Props {
-  title: string;
   bgImage?: ImageMetadata | string; 
 }
 
 const { 
-  title, 
   bgImage = Herobanner
 } = Astro.props;
 

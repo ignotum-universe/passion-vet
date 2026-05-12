@@ -1,6 +1,7 @@
 ---
 // ../layouts/Layout.astro
 import '../styles/global.css'; // Your Tailwind v4 entry point
+import Navbar from '../components/reusable-elements/Navbar.astro';
 import Footer from "../components/reusable-elements/Footer.astro"
 const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Road" } = Astro.props;
 ---
@@ -15,6 +16,7 @@ const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Ro
 		<title>{title}</title>
 	</head>
 <body>
+  <Navbar></Navbar>
   <div id="smooth-wrapper">
     <div id="smooth-content">
       <div class="grow">
@@ -44,6 +46,7 @@ const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Ro
     overflow: hidden;
     position: fixed;
     inset: 0;
+    z-index: 1;;
   }
 
   #smooth-content {
@@ -70,7 +73,7 @@ const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Ro
       content: "#smooth-content",
       smooth: 0.8,
       effects: true,
-      normalizeScroll: true,
+      normalizeScroll: false,
     });
 
     // bottom bar of footer only appears in inspect mode, mimic inspect mode refresh
