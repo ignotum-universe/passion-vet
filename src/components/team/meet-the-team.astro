@@ -1,73 +1,70 @@
 ---
+import { Image } from 'astro:assets';
+
+// Import images individually
+import vet1 from "../../staff/1.jpg";
+import vet2 from "../../staff/2.jpeg";
+import vet3 from "../../staff/3.jpg";
+import vet4 from "../../staff/4.jpg";
+import nurse5 from "../../staff/5.jpeg";
+import nurse6 from "../../staff/6.jpeg";
+import nurse7 from "../../staff/7.jpeg";
 
 const vets = [
     {
         name: "Dr. Kerrie Lek",
         credentials: "BVSc (Hons) (Melbourne), Grad Dip VCHM (IVAS)",
         role: "Veterinary Surgeon",
-        profile: "src/assets/staff/1.jpg",
-        description: "Dr. Kerrie Lek graduated from the University of Melbourne in 2011 and is NAVLE-certified with global clinical experience spanning Australia, Malaysia, the U.S., and Singapore. She specializes in Orthopedics, Soft Tissue Surgery, and Integrative Medicine, holding advanced qualifications in Veterinary Chinese Herbal Medicine and Acupuncture. A recognized expert, Dr. Kerrie has been featured in The Straits Times, Channel 5, and Women Entrepreneur Magazine. She is a former Honorary Secretary of the Singapore Veterinary Association and a dedicated Grassroots Leader with over 10 years of community service.",
+        profile: vet1, // Use the imported variable, not a string
+        description: "Dr. Kerrie Lek graduated from the University of Melbourne in 2011...",
     },
     {
-        name: "Dr. Aidil Md Nordin ",
+        name: "Dr. Aidil Md Nordin",
         credentials: "BVSc (Massey), MRCVS",
         role: "Veterinary Surgeon",
-        profile: "src/assets/staff/2.jpeg",
-        description: "Dr. Aidil earned his veterinary degree from Massey University, New Zealand, in 2015. Before settling in Singapore as a small animal veterinarian, he practiced across New Zealand, the United Kingdom, and Malaysia. He has a dedicated interest in internal medicine and general practice, frequently attending advanced workshops to stay at the forefront of the field. A recognized voice in the profession, Dr. Aidil has been featured on Mediacorp’s Detik and Berita. Outside the clinic, he is an avid nature photographer and stays active through skateboarding and trail exploration.",
+        profile: vet2,
+        description: "Dr. Aidil earned his veterinary degree from Massey University...",
     },
     {
         name: "Dr. Marc Teo",
         credentials: "DVM (Oregon)",
         role: "Veterinary Surgeon",
-        profile: "src/assets/staff/3.jpg",
-        description: "Dr. Marc Teo graduated in 2022 with a Doctor of Veterinary Medicine from Oregon State University. He enjoys working with small companion animals and has an interest in internal medicine. Due to the ever changing nature of veterinary medicine, Dr Teo is keen to learn and explore new approaches to enhance veterinary care. Dr Teo is a firm believer in having interests and passions outside of veterinary medicine. During his free time, he enjoys playing golf, working out, traveling and watching a variety of sports in person as well as on television. ",
+        profile: vet3,
+        description: "Dr. Marc Teo graduated in 2022...",
     },
     {
         name: "Dr. Jeffrey Ling",
         credentials: "BVSc (Massey, NZ) MSc (NUS, SG)",
         role: "Veterinary Surgeon",
-        profile: "src/assets/staff/4.jpg",
-        description: "Dr. Jeffrey Ling graduated from Massey University, New Zealand in 2013. He has experience working in academia, regulatory authorities, and small animal clinics. He is interested in preventive medicine and epidemiology. As he believes that prevention is better than cure, he hopes to work with pawrents to keep their pawkids healthy through many disease preventive measures. Also, as an avid learner, he attends continuing education events regularly to keep himself updated with current advances in veterinary medicine",
+        profile: vet4,
+        description: "Dr. Jeffrey Ling graduated from Massey University...",
     },
 ];
 
 const nurses = [
     {
         name: "Intan",
-        credentials:
-            "Diploma in Marine Science and Aquaculture, Specialist Diploma in Veterinary Clinical Practice",
+        credentials: "Diploma in Marine Science and Aquaculture...",
         role: "Nurse",
-        profile: "src/assets/staff/5.jpeg",
-        description: "Intan graduated with a Diploma in Marine Science and Aquaculture and an additional certification in Specialist Diploma in Veterinary Clinical Practice. In terms of work experience, she has completed both internship and a full-time position for 1.5 years and started working with Passion Veterinary Clinic since 2021. In her personal life, she has a cherished 20-year-old cat that she spend quality time with. She also enjoys building up Lego sets, watching Kdramas and animes, and collecting figurines. Furthermore, she prioritizes spending time with her family and exploring various restaurants and cafes.",
+        profile: nurse5,
+        description: "Intan graduated with a Diploma in Marine Science...",
     },
     {
         name: "Thet Aye Cham",
         credentials: "Bachelor of Veterinary Science",
         role: "Nurse",
-        profile: "src/assets/staff/6.jpeg",
-        description: "Cham graduated with a Bachelor of Veterinary Science from Yezin, Nay Pyi Taw in 2015. Since then, she has gained valuable work experience in veterinary clinics in Myanmar before coming to Singapore in August 2022. Alongside her professional pursuits, she takes great interest in volunteering, traveling, and learning foreign languages. During her free time, she indulges in hobbies such as playing badminton, acquiring new languages, hiking, and cycling.",
+        profile: nurse6,
+        description: "Cham graduated with a Bachelor of Veterinary Science...",
     },
     {
         name: "Siti Raidah",
         credentials: "Specialist Diploma in Veterinary Clinical Practice",
         role: "Nurse",
-        profile: "src/assets/staff/7.jpeg",
-        description: "Raidah graduated with a Specialist Diploma in Veterinary Clinical Practice and has been working in the veterinary industry since 2019 after sparking an interest in feline care. Outside of work she spends her free time in bed with her paralysed cat Po.",
+        profile: nurse7,
+        description: "Raidah graduated with a Specialist Diploma...",
     },
 ];
 ---
-
-<!-- hidden full profile overlay -->
-<div id="drawer-overlay" class="fixed inset-0 bg-black/50 z-[99] hidden opacity-0"></div>
-<div id="drawer-panel" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[100] translate-x-full shadow-2xl p-8 overflow-y-auto">
-    <button id="close-drawer" class="absolute top-5 right-5 text-slate-400 hover:text-black">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
-    
-    <div id="drawer-content" class="flex flex-col items-center text-center mt-10">
-        <!-- Content will be injected here by JS -->
-    </div>
-</div>
 
 <!-- actual page content -->
 <main class="dm-sans-font">
@@ -85,7 +82,7 @@ const nurses = [
             vets.map((vet) => (
                 <div class="flex flex-col items-center text-center">
                     <div class="mb-4">
-                        <img
+                        <Image
                             src={vet.profile}
                             alt={vet.name}
                             class="w-60 h-60 object-cover rounded-lg shadow-md"
@@ -130,7 +127,7 @@ const nurses = [
             nurses.map((nurse) => (
                 <div class="flex flex-col items-center text-center">
                     <div class="mb-4">
-                        <img
+                        <Image
                             src={nurse.profile}
                             alt={nurse.name}
                             class="w-60 h-60 object-cover rounded-lg shadow-md"
