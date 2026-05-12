@@ -286,6 +286,17 @@ const nurses = [
         });
     });
 
+    // Cache all profile images on load
+    document.querySelectorAll<HTMLButtonElement>(".vet-read-more").forEach((btn) => {
+    const data = btn.dataset.vet;
+    if (data) {
+        const vet = JSON.parse(data);
+        const img = new Image();
+        // This line triggers the browser to download the image into the cache
+        img.src = vet.profile.src || vet.profile;
+    }
+});
+
     // Read more function
     function openModal(vet: { name: string; credentials: string; role: string; profile: any; description: string }) {
         // Populate content
@@ -296,6 +307,7 @@ const nurses = [
         role.textContent  = vet.role;
         description.textContent = vet.description;
 
+        //prevent background scrolling
         document.body.style.overflow = "hidden";
 
         overlay.classList.remove("pointer-events-none");
@@ -314,8 +326,10 @@ const nurses = [
     function closeModal() {
         if (!isOpen) return;
         isOpen = false;
+
+        // resume background scrolling
         document.body.style.overflow = "";
-        
+
         const tl = gsap.timeline({
             onComplete: () => overlay.classList.add("pointer-events-none"),
         });
