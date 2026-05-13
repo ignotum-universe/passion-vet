@@ -42,18 +42,18 @@ const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Ro
     opacity: 0;
   }
 
-  #smooth-wrapper {
-    overflow: hidden;
-    position: fixed;
-    inset: 0;
-    z-index: 1;;
+@media (min-width: 1024px) {
+    #smooth-wrapper {
+      overflow: hidden;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
   }
 
   #smooth-content {
     width: 100%;
-    /* Ensure it starts at least full screen */
     min-height: 100vh;
-    /* Ensures margin-collapsing doesn't hide the footer */
     display: flex;
     flex-direction: column;
   }
@@ -66,9 +66,14 @@ const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Ro
 
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-  // Function to initialize everything safely
-  const initSmoother = () => {
-    const smoother = ScrollSmoother.create({
+  // Initialize smooth scroll effect
+const initSmoother = () => {
+  let screensize = gsap.matchMedia();
+  let smoother: ScrollSmoother | undefined;
+
+  // disable smooth scroll if screen size is below 1024px
+  screensize.add("(min-width: 1024px)", () => {
+    smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
       smooth: 0.8,
@@ -76,25 +81,33 @@ const { title = "PASSIONVET (Passion Vet Clinic @ Woodlands blk 136 Marsiling Ro
       normalizeScroll: false,
     });
 
-    // bottom bar of footer only appears in inspect mode, mimic inspect mode refresh
+    // Handle the initial setup
     setTimeout(() => {
-      smoother.refresh();
+      smoother?.refresh(); // Optional chaining: only runs if smoother exists
       ScrollTrigger.refresh();
-      
-      // Only show the body after the calculation is done
       gsap.to("body", { opacity: 1, duration: 0.5 });
     }, 200);
 
-    window.addEventListener("resize", () => {
-      smoother.refresh();
-      ScrollTrigger.refresh();
-    });
-  };
-
-  // Run on load, but with a double-frame buffer
-  window.addEventListener("load", () => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(initSmoother);
-    });
+    return () => {
+      smoother?.kill();
+      smoother = undefined;
+      gsap.set("body", { opacity: 1 });
+    };
   });
+
+  // Mobile fallback for visibility
+  screensize.add("(max-width: 1024px)", () => {
+    gsap.to("body", { opacity: 1, duration: 0.5 });
+  });
+
+  window.addEventListener("resize", () => {
+    if (smoother) {
+      smoother.refresh();
+    }
+    ScrollTrigger.refresh();
+  });
+};
+
+initSmoother();
+
 </script>
